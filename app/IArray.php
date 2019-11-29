@@ -1,24 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: omitobisam
- * Date: 30/07/2018
- * Time: 22:15
- */
 
 namespace App;
-
 
 class IArray implements \Countable
 {
     /**
      * @var array $in_items
      */
-    private $in_items;
+    private $in_items = [];
+
     /**
-     * @var array $out_items;
+     * @var array $out_items ;
      */
-    private $out_items;
+    private $out_items = [];
 
     /**
      * IArray constructor.
@@ -39,6 +33,7 @@ class IArray implements \Countable
 
     /**
      * @param mixed $in_items
+     * @return $this
      */
     private final function setInItems($in_items)
     {
@@ -55,22 +50,25 @@ class IArray implements \Countable
         return $this->in_items;
     }
 
+    /**
+     * @return $this
+     */
     private function load()
     {
         foreach ($this->in_items as $key => $in_item) {
             array_push($this->out_items, new IItem($key, $in_item));
         }
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getOutItems()
+    protected function getOutItems()
     {
         return array_map(function (IItem $out_item) {
             return $out_item->toString();
         }, $this->out_items);
     }
-
 }
