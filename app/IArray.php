@@ -65,10 +65,14 @@ class IArray implements \Countable
     /**
      * @return mixed
      */
-    protected function getOutItems()
+    public function getOutItems()
     {
-        return array_map(function (IItem $out_item) {
-            return $out_item->toString();
-        }, $this->out_items);
+        $items = [];
+
+        foreach ($this->out_items as $out_item) {
+            $items[$out_item->getKey()] = $out_item->getValue();
+        }
+
+        return $items;
     }
 }
